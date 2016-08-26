@@ -40,5 +40,13 @@ object AnalyzeTitanicData {
     //perform projection
     val selection = data.select(col("Name"), col("Age"), col("Sex"))
     selection.show()
+
+    //perform sql
+    data.registerTempTable("data")
+    val groupByGenderUsingSql = sqlContext.sql("select Sex, count(1) as count from data group by Sex order by count desc")
+    groupByGenderUsingSql.show()
+
+    val groupBySurvivedUsingSql = sqlContext.sql("select Survived, count(1) as count from data group by Survived order by count desc")
+    groupBySurvivedUsingSql.show()
   }
 }
