@@ -32,5 +32,13 @@ object AnalyzeTitanicData {
     //group by gender, survival
     val groupByGenderSurvived = data.groupBy("Sex","Survived").count().sort(asc("Sex"), desc("count"))
     groupByGenderSurvived.show()
+
+    //perform filtering
+    val females = data.filter("Sex = 'female'")
+    females.show()
+
+    //perform projection
+    val selection = data.select(col("Name"), col("Age"), col("Sex"))
+    selection.show()
   }
 }
